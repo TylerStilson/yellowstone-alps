@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, maximum-scale=1">
+    <title>Yellowstone ALPS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?50">
+    <script src="https://kit.fontawesome.com/802a478572.js" crossorigin="anonymous"></script>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+
+</head>
+<body>
+
+    <div id="app">
+
+        <div v-show="manual == true" class="content" id="flex-C">
+            <input type="text" name="plate number" id="plateInput" placeholder="Plate Number" v-model="manPlate" v-on:keyup.enter="manualAction()">
+            <div id="camIcon" class="fa-solid fa-camera fa-xl" style="color: #1E252B;" @click="showCamera()"></div>
+            <button @click="GoToCheck()" class="resetB">Submit</button>
+
+        </div>
+
+
+
+        
+        <div v-show="result == true" class="carCheck">
+            <div v-if="anyday == true" id="full-cont">
+                <i class="fa-solid fa-circle-check fa-10x" style="color: green; padding: 25px 25px 25px 25px;"></i>
+                <div id="side-cont">
+                    <h1>You can come anytime</h1>
+
+                    <div class="container">
+                        <div class="month"><div v-onclick="calBack">&#60;</div>  {{month}}  <div v-on:click="calNext">&#62;</div></div>
+                        <div class="week">
+                            <div>Sun</div>
+                            <div>Mon</div>
+                            <div>Tue</div>
+                            <div>Wed</div>
+                            <div>Thu</div>
+                            <div>Fri</div>
+                            <div>Sat</div>
+                        </div>
+                        <div class="days">
+                            <!-- <style>
+                                .square:nth-child(odd){
+                                    background-color: {{oddColor}};
+                                }
+                            </style> -->
+                            <div class="pastDays" v-for="day in spaces"></div>
+                            <div v-for="day in leftDaysN" class="square" v-bind:style="{'background':'#BDE7BD'}">{{day + difficent}}</div>
+                            <!-- v-bind:style="nth-child(odd){'background-color': oddColor;}" -->
+
+
+                        </div>
+
+                    </div>
+                    <div class="flexC"><button class="resetB" v-on:click ="scanAgain()">Check Another</button></div>
+                </div>
+
+
+
+
+                
+            </div>
+
+            <div v-else-if="scanResult" class="carCheck">
+                <i class="fa-solid fa-circle-check fa-10x" style="color: green; padding: 25px 25px 25px 25px;"></i>
+                <div class="mobileMess">
+                    <h1 class="heroText">Entry Permitted Today</h1>
+
+                    <div class="container">
+                        <div class="month">{{month}}</div>
+                        <div class="week">
+                            <div>Sun</div>
+                            <div>Mon</div>
+                            <div>Tue</div>
+                            <div>Wed</div>
+                            <div>Thu</div>
+                            <div>Fri</div>
+                            <div>Sat</div>
+                        </div>
+                        <div class="days">
+                            <!-- <style>
+                                .square:nth-child(odd) {
+                                    background-color: green;
+                                }
+                            </style> -->
+                            <div class="pastDays" v-for="day in spaces"></div>
+                            <div v-for="day in leftDaysN" class="square" :class="evenDayClass(day)">{{day + difficent }}</div>
+                            <!-- v-bind:style="nth-child(odd){'background-color': oddColor;}" -->
+    
+    
+                        </div>
+    
+                    </div>
+
+
+                    <button class="resetB" v-on:click ="scanAgain()">Check Another</button>
+                </div>
+            </div>
+
+            
+
+            <div v-else class="carCheck">
+                <i class="fa-solid fa-circle-xmark fa-10x" style="color: red; padding: 25px 25px 25px 25px;"></i>
+                <div class="mobileMess">
+                    <h1 class="heroText">Entry Not Permitted Today</h1>
+                    <h2 style="text-align: center; padding-bottom: 10px;">Your next allowed day to enter the park is {{nextAllowedDate}}.</h2>
+                    
+                    <div class="container">
+                        <div class="month">{{month}}</div>
+                        <div class="week">
+                            <div>Sun</div>
+                            <div>Mon</div>
+                            <div>Tue</div>
+                            <div>Wed</div>
+                            <div>Thu</div>
+                            <div>Fri</div>
+                            <div>Sat</div>
+                        </div>
+                        <div class="days">
+                            <!-- <style>
+                                .square:nth-child(odd) {
+                                    background-color: green;
+                                }
+                            </style> -->
+                            <div class="pastDays" v-for="day in spaces"></div>
+                            <div v-for="day in leftDaysN" class="square" :class="oddDayClass(day)">{{day + difficent }}</div>
+                            <!-- v-bind:style="nth-child(odd){'background-color': oddColor;}" -->
+    
+    
+                        </div>
+    
+                    </div>
+
+                    <button class="resetB" v-on:click ="scanAgain()">Check Another</button>
+                </div>
+            </div>
+        </div>
+        
+
+
+        <div v-show="checks == true" class="content" id="flex-C">
+
+            <div>
+                <h1>Check any that apply</h1>
+                <input type="checkbox" class="check" name="service" value="service" v-model="Mselected" :checked="Mselected">
+                <label for="service">I'm an essential service (mail, FedEx, UPS, employees, contractors, etc.)</label><br>
+
+                <input type="checkbox" class="check"mname="comm" value="commercial" v-model="Cselected" :checked="Cselected">
+                <label for="comm">I'm a current commercial use operator</label><br>
+
+                <input type="checkbox" class="check" name="reserve" value="reservations" v-model="Rselected" :checked="Rselected">
+                <label for="reserve">I have a reservation</label><br>
+
+                <input type="checkbox" name="camping" class="check" value="camping" v-model="CampSelected" :checked="CampSelected">
+                <label for="camping">I have overnight camping and/or lodging reservations in the park</label><br>
+
+                <input type="checkbox" name="motorGroup" class="check" value="motorGroup" v-model="mgSelected" :checked="mgSelected">
+                <label for="motorGroup">I'm entering the park with a motorcycle group</label><br>
+
+                <input type="checkbox" name="bike" class="check" value="bike" v-model="Bselected" :checked="Bselected">
+                <label for="bike">I'm entering the park on a bicycle</label><br>
+
+                <input type="checkbox" name="walk" class="check" value="walk" v-model="Wselected" :checked="Wselected">
+                <label for="walk">I'm entering the park on foot</label><br>
+
+                <div class="flexC"><button @click="manualAction()" class="resetB">Submit</button></div>
+            </div>
+
+            
+        </div>
+
+        
+
+
+
+
+        
+        
+
+    </div>
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="app.js?18"></script>
+</body>
+</html>

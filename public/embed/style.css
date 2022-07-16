@@ -1,0 +1,280 @@
+body{
+    margin: 0px;
+}
+#app{
+    display: grid;
+    grid-template-columns: minmax(20px,1fr) repeat(6, minmax(0,275px)) minmax(20px,1fr);
+}
+.heroText{
+    grid-row: 2/3;
+    grid-column: 2/-2;
+    margin: 0px;
+}
+#videoCamera{
+    margin-top: 20px;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+ }
+video{
+    width: 80%;
+}
+#screenshotB{
+    grid-row: 3/4;
+    grid-column: 4/6;
+    width: 55px;
+    height: 55px;
+    border-radius: 90px;
+    border: none;
+    background: #96A145;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+#SSicon{
+    width: 42px;
+    height: 42px;
+}
+.carCheck{
+    grid-row: 3/4;
+    grid-column: 2/-2;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+#CapDiv{
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     width: 80%;
+}
+#feed{
+     text-align: center;
+     margin: 0px;
+     font-size: 16px;
+     color: red;
+}
+h1{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    text-align: center;
+    color: #4a4a4a;
+}
+h2{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    color: #4a4a4a;
+}
+.Htext{
+    width: 100%;
+    padding: 20px;
+}
+
+#header{
+    display: flex;
+    grid-row: 1/2;
+    grid-column: 1/-1;
+    height: 80px;
+    background-color: #1E252B;
+    align-items: center;
+}
+#headerLogo{
+    height: 60px;
+    padding-left: 20px;
+}
+#headerText{
+    color: white;
+    font-family: 'Roboto';
+    padding-left: 20px;
+    font-size: 24px;
+}
+.resetB {
+    border: none;
+    background-color: #1E252B;
+    color: white;
+    font-family: 'Roboto';
+    padding: 5px 16px;
+    border-radius: 90px;
+    font-size: 18px;
+    margin-top: 20px;
+}
+p{
+    font-family: 'Roboto';
+    font-size: 12px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+#info{
+    text-align: right;
+    padding: 20px 20px 10px 20px;
+    color: #1E252B;
+}
+.content{
+    grid-row: 3/4;
+    grid-column: 1/-1;
+}
+#infopage{
+    margin: 10px;
+    padding-top: 10px;
+}
+#flex{
+    grid-column: 1/-1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row-reverse;
+    margin-bottom: 10px;
+}
+.resplate{
+    font-size: 16px;
+}
+.respO{
+    font-size: 14px;
+}
+#manual{
+    display: flex;
+    justify-content: flex-end;
+    text-align: left;
+    width: 65%;
+}
+div > p > a{
+    color: royalblue;
+    font-size: 16px;
+}
+#flex-C{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+.flexC{
+    display: flex;
+    justify-content: center;
+}
+input{
+    width: 80%;
+    margin: 20px;
+    padding: 0px 16px;
+    line-height: 40px;
+    font-size: 18px;
+    font-family: 'Roboto';
+}
+#goback{
+    font-family: 'Roboto';
+    font-size: 16px;
+    /* margin-top: 5px; */
+    margin-bottom: 5px;
+    margin-left: 20px;
+}
+.screenshotImage{
+    width: 80%;
+    
+}
+#camIcon{
+    position: absolute;
+    left: 87%;
+    top: 42px;
+}
+#gotoMan{
+    padding-left: 20px;
+    padding-top: 10px;
+}
+.mobileMess{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+.check{
+    width: 20px;
+    margin: 0px;
+    margin-bottom: 20px;
+}
+label{
+    padding-left: 10px;
+    font-size: 18px;
+    font-family: 'Roboto';
+}
+#newFlex{
+    display: flex;
+    align-items: center;
+}
+.week{
+    display: flex;
+}
+.week > div {
+    width: 34px;
+    border: 1px solid #a7a7a7;
+    height: 24px;
+    text-align: center;
+    font-family: 'Roboto';
+}
+.month{
+    display: flex;
+    justify-content: center;
+    margin: 5px 28px 0px 0px;
+    font-family: 'Roboto';
+    border: 1px solid #a7a7a7;
+}
+.square{
+    border: 1px #a9a7a7;
+    width: 34px;
+    height: 34px;
+    border-style: solid;
+    display: block;
+}
+.pastDays{
+    border: 1px rgb(211, 205, 205);
+    width: 34px;
+    height: 34px;
+    border-style: solid;
+    display: block;
+}
+.days{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 280px;
+}
+/* .square:nth-child(odd){
+    background-color: red;
+} */
+.every-other:nth-child(2){
+    background-color: green;
+}
+
+.green-day{
+    background-color: #BDE7BD;
+}
+
+.red-day{
+    background-color: #FFD5D4;
+}
+.container{
+    margin-top: 20px;
+    margin-left: 20px;
+}
+#side-cont{
+    display: flex;
+    flex-direction: column;
+}
+#full-cont{
+    display: flex;
+    align-items: center;
+}
+@media only screen and (max-width: 480px){
+    .carCheck{
+        flex-direction: column;
+    }
+    /* .mobileMess{
+        padding-left: 0px;
+        padding-right: 0px;
+    } */
+}

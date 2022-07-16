@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, maximum-scale=1">
+    <title>Yellowstone ALPS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?30">
+    <script src="https://kit.fontawesome.com/802a478572.js" crossorigin="anonymous"></script>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+
+</head>
+<body>
+
+    <div id="app">
+        
+        <div id="header">
+            <img id="headerLogo" src="images/YLWSTNE2.png" alt="header logo">
+            <p id="headerText">Yellowstone ALPS</p>
+        </div>  
+
+        <div id="flex">
+            <i v-if="showInfo" class="fa-solid fa-xmark fa-xl" id="info"v-on:click="showInfoButton"></i>
+            <i v-else class="fa-solid fa-circle-info fa-xl" id="info"v-on:click="showInfoButton"></i>
+            <i v-if="manual == false && showScan == true" class="fa-solid fa-xmark fa-xl" id="gotoMan"v-on:click="manualEntry()"></i>
+        </div>
+
+        <div v-show="showInfo == false && manual == false" class="content">
+
+            <div class="carCheck" v-show="showScan">
+                <h1 class="heroText">Scan your license plate <br> to check park entry</h1>
+
+                
+                <div  id="videoCamera">
+                    <video ref="video" v-show="picture == false" autoplay playsinline></video>
+                    <canvas ref="canvas" class="screenshotImage" v-show="picture" v-bind:style="{'display': display}"></canvas>
+                </div>
+
+                
+                
+                
+
+            
+                <button  v-on:click="doScreenshot()" ref="screenshot" id="screenshotB" v-bind:style="{'background-color': bcolor}">
+                    <!-- <v-icon v-if="loadingP" x-large>mdi-loading mdi-spin</v-icon> -->
+                    <i v-if="loadingP" class="fa-solid fa-spinner fa-spin-pulse fa-xl" style="color: #1E252B;"></i>
+                    
+                    <i v-else class="fa-solid fa-camera fa-xl" style="color: #1E252B;"></i>
+                
+                </button>
+                <h1 v-if="carFeedback" id="feed">{{feedback}}</h1>
+ 
+            </div>
+        
+        
+
+        
+            <div v-show="showScan == false" class="carCheck">
+                <div v-if="scanResult" class="carCheck">
+                    <h1 class="heroText">Entry Permitted Today</h1>
+                    <i class="fa-solid fa-circle-check fa-10x" style="color: green; padding: 25px 0px 25px 0px;"></i>
+                    <p class="resplate">Your plate number was read as: {{plate}}</p>
+                    <p  class="respO" v-if="zeros">Warning: Carefully check "0" vs "O"</p>
+                    <button class="resetB" v-on:click ="scanAgain()">Scan Again</button>
+                </div>
+
+                <div v-else class="carCheck">
+                    <h1 class="heroText">Entry Not Permitted Today</h1>
+                    <i class="fa-solid fa-circle-xmark fa-10x" style="color: red; padding: 25px 0px 25px 0px;"></i>
+                    <p class="resplate">Your plate number was read as: {{plate}}</p>
+                    <p class="respO" v-if="zeros">Warning: Carefully check "0" vs "O"</p>
+                    <h2 style="text-align: center; padding-bottom: 10px;">Your next allowed day to enter the park is {{nextAllowedDate}}.</h2>
+                    <button class="resetB" v-on:click ="scanAgain()">Scan Again</button>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div v-show="showInfo == true" class="content">
+            <img id="infopage" src="images/info.svg" alt="info page">
+
+        </div>
+
+        <div v-show="manual == true" class="content" id="flex-C">
+            <input type="text" name="plate number" id="plateInput" placeholder="Plate Number" v-model="manPlate" v-on:keyup.enter="manualAction()">
+            <div id="camIcon" class="fa-solid fa-camera fa-xl" style="color: #1E252B;" @click="showCamera()"></div>
+            <button @click="manualAction()" class="resetB">Submit</button>
+
+        </div>
+
+
+
+
+        
+        
+
+    </div>
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="app.js?13"></script>
+</body>
+</html>
